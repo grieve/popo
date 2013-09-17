@@ -1,4 +1,11 @@
 popo_test
-*.o
 *.swp
 *.swo
+*.slo
+*.lo
+*.o
+*.so
+*.dylib
+*.lai
+*.la
+*.a
