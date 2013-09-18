@@ -21,6 +21,7 @@ class popo::core::Engine {
 
 private:
 	void _handleEvents();
+	void _bindInputs();
 
 	RenderList _renderList;
 	SDL_Window* _window;
