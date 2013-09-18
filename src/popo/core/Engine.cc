@@ -31,6 +31,8 @@ popo::core::Engine::Engine(
 		exit(1);
 	}
 
+	_bindInputs();
+
 };
 
 
@@ -41,6 +43,36 @@ popo::core::Engine::~Engine(){
 	SDL_Quit();
 
 };
+
+void popo::core::Engine::_bindInputs(){
+
+	input.addListener(
+		SDL_KEYDOWN,
+		27,
+		[&](SDL_Event* event){
+			stop();
+		}
+	);
+
+	input.addListener(
+		SDL_KEYDOWN,
+		45,
+		[&](SDL_Event* event){
+			popo::graphics::Spritemap* spmp = dynamic_cast<popo::graphics::Spritemap*>(_renderList[0]);
+			spmp->currentFrame -= 1;
+		}
+	);
+
+	input.addListener(
+		SDL_KEYDOWN,
+		61,
+		[&](SDL_Event* event){
+			popo::graphics::Spritemap* spmp = dynamic_cast<popo::graphics::Spritemap*>(_renderList[0]);
+			spmp->currentFrame += 1;
+		}
+	);
+
+}
 
 
 void popo::core::Engine::_handleEvents(){
@@ -56,16 +88,6 @@ void popo::core::Engine::_handleEvents(){
 		if(e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
 		{
 			input.handleKeypress(e);
-			popo::graphics::Spritemap* spmp = dynamic_cast<popo::graphics::Spritemap*>(_renderList[0]);
-			if(e.key.state == SDL_PRESSED)
-			{
-				std::cout << spmp->currentFrame << std::endl;
-				if(e.key.keysym.sym == 45)
-					spmp->currentFrame -= 1;
-				if(e.key.keysym.sym == 61)
-					spmp->currentFrame += 1;
-				std::cout << spmp->currentFrame << std::endl;
-			}
 		}
 	}
 
